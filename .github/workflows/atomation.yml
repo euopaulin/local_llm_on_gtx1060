@@ -1,4 +1,4 @@
-name: Automation
+name: Automation IA CI/CD Pipeline
 on:
   push:
     branches:

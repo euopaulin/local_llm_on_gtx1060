@@ -104,11 +104,30 @@ docker run -d --restart always --gpus=all   -v ollama:/root/.ollama   -p 11434:1
 ```bash
 docker ps
 # Deve mostrar o contêiner 'ollama' com STATUS: Up X seconds/minutes
+docker exec -it ollama ollama run mistral:7b
+# Iniciar o Docker com o mistral:7b
+watch -n 1 nvidia-smi
+# Para monitorar em tempo real o uso da GPU Nvidia
 ```
 
 Teste rápido via CLI (baixa o modelo se necessário):
 ```bash
 docker exec -it ollama ollama run mistral "Escreva um haicai sobre DevOps."
+```
+
+---
+### Como configurar com o Open WebUI
+
+No comando abaixo irei colocar o conteiner docker com o Open-WebUI na porta 3000 e abrir o link http://localhost:3000/
+
+```bash
+docker run -d \
+-p 3000:8080 \
+--add-host=host.docker.internal:host-gateway \
+-v open-webui:/app/backend/data \
+--name open-webui \
+--restart always \
+ghcr.io/open-webui/open-webui:main
 ```
 
 ---
@@ -312,7 +331,7 @@ volumes:
 - **Controle de versão**: versionar somente **código**, não índices (`.ragdb`) nem caches;
 - **Observabilidade**: logar tempos/respostas para avaliar **latência** e **T/s** ao longo do tempo.
 
----
+--- 
 
 ## 8) Cheatsheet
 ```bash

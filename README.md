@@ -353,5 +353,3 @@ docker exec -it ollama ollama run mistral:instruct-q4_K_M "Diga 'GG DevOps!'"
 Uso educacional/laboratorial. Verifique licenças dos modelos e bibliotecas antes de uso comercial.
 
 ---
-
-**GG!** Você tem um **LLM local** com **GPU**, **Agent ReAct** e **RAG** prontos para missão. Se quiser, posso gerar um **Dockerfile** de API (FastAPI) para servir seu RAG via HTTP e integrar com frontend. 🎮

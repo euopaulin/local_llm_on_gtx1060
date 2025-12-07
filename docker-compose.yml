@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # 1. Serviço do LLM (Mistral 7B)
+  ollama-mistral-gpu:
+    image: ollama/ollama
+    # Use 'gpus: all' se tiver o NVIDIA Container Toolkit configurado
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+
+  # 2. Serviço da Aplicação RAG (Frontend/Backend)
+  rag-app:
+    build: . # Constrói a imagem usando o Dockerfile acima
+    ports:
+      - "8000:8000"
+    environment:
+      # Usa o nome do serviço 'ollama-mistral-gpu' como hostname
+      - OLLAMA_HOST=http://ollama-mistral-gpu:11434
+    depends_on:
+      - ollama-mistral-gpu
+
+volumes:
+  ollama_data:
